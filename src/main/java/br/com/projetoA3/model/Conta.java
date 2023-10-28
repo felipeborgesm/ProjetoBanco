@@ -1,6 +1,7 @@
 package br.com.projetoA3.model;
 
 import br.com.projetoA3.dto.ContaRequest;
+import br.com.projetoA3.dto.GetTransacaoContaResponse;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,5 +54,9 @@ public class Conta {
         this.agencia = contaRequest.getAgencia();
         this.tipoConta = contaRequest.getTipoConta();
         this.saldo = contaRequest.getSaldo();
+    }
+
+    public GetTransacaoContaResponse getContaReduced(Conta conta) {
+        return new GetTransacaoContaResponse(conta.getNumero(), conta.getAgencia());
     }
 }

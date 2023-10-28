@@ -17,7 +17,6 @@ public class ContaResponse {
     private TipoConta tipoConta;
     private BigDecimal saldo;
     private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
 
     public ContaResponse(Conta conta) {
         this.numero = conta.getNumero();

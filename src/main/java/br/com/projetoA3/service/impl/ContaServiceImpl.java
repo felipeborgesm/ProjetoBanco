@@ -67,7 +67,7 @@ public class ContaServiceImpl implements ContaService {
   public void createTransacao(Long id, TransacaoRequest transacaoRequest) {
     var contaOrigem = contaRepository.findById(id).orElseThrow();
 
-    if (contaOrigem.getSaldo().compareTo(transacaoRequest.getSaldo()) < 0) {
+    if (contaOrigem.getSaldo().compareTo(transacaoRequest.getValor()) < 0) {
       throw new RuntimeException("Saldo insuficiente");
     }
     
@@ -76,7 +76,7 @@ public class ContaServiceImpl implements ContaService {
       throw new RuntimeException("Conta não encontrada");
     }
 
-    var saldoParaTransferir = transacaoRequest.getSaldo();
+    var saldoParaTransferir = transacaoRequest.getValor();
 
     contaDestinada.setSaldo(saldoParaTransferir);
 
