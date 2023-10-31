@@ -9,9 +9,13 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "conta")
 @Entity
@@ -24,6 +28,7 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "numero")
     private Integer numero;
 
@@ -48,6 +53,10 @@ public class Conta {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonProperty(access = JsonProperty.Access.AUTO)
+    private List<Transacao> transacao;
 
     public Conta(ContaRequest contaRequest) {
         this.numero = contaRequest.getNumero();

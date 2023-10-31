@@ -7,22 +7,30 @@ import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class ContaResponse {
+    private Long id;
     private Integer numero;
     private Integer agencia;
     private TipoConta tipoConta;
     private BigDecimal saldo;
-    private LocalDateTime dataCriacao;
+    private String dataCriacao;
 
     public ContaResponse(Conta conta) {
+        this.id = conta.getId();
         this.numero = conta.getNumero();
         this.agencia = conta.getAgencia();
         this.tipoConta = conta.getTipoConta();
         this.saldo = conta.getSaldo();
-        this.dataCriacao = LocalDateTime.now();
+        this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
+    }
+
+    private String formatarDataCriacao(LocalDateTime dataCriacao) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dataCriacao.format(formatter);
     }
 }

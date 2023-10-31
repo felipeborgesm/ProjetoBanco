@@ -1,35 +1,40 @@
 package br.com.projetoA3.service.impl;
 
-import br.com.projetoA3.service.TransacaoService;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import br.com.projetoA3.service.TransacaoService;
 import br.com.projetoA3.repository.ContaRepository;
 import br.com.projetoA3.repository.TransacaoRepository;
+import br.com.projetoA3.dto.CreateTransacaoResponse;
 import br.com.projetoA3.dto.TransacaoRequest;
 import br.com.projetoA3.dto.TransacaoResponse;
 import br.com.projetoA3.model.Transacao;
 
-public class TransacaoServiceImpl implements TransacaoService {
+import java.util.List;
 
+@Service
+public class TransacaoServiceImpl implements TransacaoService {
     @Autowired
     TransacaoRepository transacaoRepository;
+    @Autowired
     ContaRepository contaRepository;
 
     @Override
-    public void create(Long id, TransacaoRequest transacaoRequest) {
+    public CreateTransacaoResponse createTransacao(Long id, TransacaoRequest transacaoRequest) {
         var contaOrigem = contaRepository.findById(id).orElseThrow();
 
         if (contaOrigem.getSaldo().compareTo(transacaoRequest.getValor()) < 0) {
-            throw new RuntimeException("Saldo insuficiente");
+            throw new RuntimeException("Saldo insuficiente.");
         }
 
         var contaDestinada = contaRepository.findByNumeroAndAgencia(transacaoRequest.getNumero(),
                 transacaoRequest.getAgencia());
         if (contaDestinada == null) {
-            throw new RuntimeException("Conta não encontrada");
+            throw new RuntimeException("Conta não encontrada.");
+        }
+        if (contaDestinada.getId() == contaOrigem.getId()) {
+            throw new RuntimeException("Não é possível fazer transação para mesma conta dessa forma.");
         }
 
         var saldoParaTransferir = transacaoRequest.getValor();
@@ -40,11 +45,32 @@ public class TransacaoServiceImpl implements TransacaoService {
 
         Transacao transacao = new Transacao(transacaoRequest);
         transacaoRepository.save(transacao);
+
+        return new CreateTransacaoResponse(transacao);
     }
 
     @Override
     public List<TransacaoResponse> getAllByConta(Long id) {
         return transacaoRepository.getAllByContaId(id);
+    }
+
+    @Override
+    public List<Transacao> getAll() {
+        return transacaoRepository.findAll();
+    }
+
+    @Override
+    public CreateTransacaoResponse createDeposito(Long id, TransacaoRequest transacaoRequest) {
+        var contaOrigem = contaRepository.findById(id).orElseThrow();
+
+        var saldoParaTransferir = transacaoRequest.getValor();
+
+        contaOrigem.setSaldo(contaOrigem.getSaldo().add(saldoParaTransferir));
+
+        Transacao transacao = new Transacao(transacaoRequest);
+        transacaoRepository.save(transacao);
+
+        return new CreateTransacaoResponse(transacao);
     }
 
 }

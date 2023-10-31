@@ -1,6 +1,7 @@
 package br.com.projetoA3.model;
 
 import br.com.projetoA3.dto.TransacaoRequest;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Table(name = "transacao")
 @Entity
+@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,12 +21,12 @@ import java.time.LocalDateTime;
 public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "valor")
     private BigDecimal valor;
 
-    @Column(name = "tipo_transacao")
+    @Column(name = "tipoTransacao")
     @Enumerated(EnumType.STRING)
     private TipoTransacao tipoTransacao;
 
@@ -34,7 +36,7 @@ public class Transacao {
     @Column(name = "agencia")
     private Integer agencia;
 
-    @Column(name = "data_criacao")
+    @Column(name = "dataCriacao")
     @CreatedDate
     private LocalDateTime dataCriacao;
 

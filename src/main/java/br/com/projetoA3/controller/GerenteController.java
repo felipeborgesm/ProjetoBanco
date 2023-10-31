@@ -14,9 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/gerente")
 public class GerenteController {
-  @Autowired ContaService contaService;
+  @Autowired
+  ContaService contaService;
 
-  @Autowired UsuarioService usuarioService;
+  @Autowired
+  UsuarioService usuarioService;
 
   @GetMapping
   public List<Conta> getAll(String senha) {

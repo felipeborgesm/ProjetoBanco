@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -13,12 +14,17 @@ public class UsuarioResponse {
 
     private String nome;
     private String cpf;
-    private LocalDateTime dataCriacao;
+    private String dataCriacao;
     private LocalDateTime dataAtualizacao;
 
     public UsuarioResponse(Usuario usuario) {
         this.nome = usuario.getNome();
         this.cpf = usuario.getCpf();
-        this.dataCriacao = LocalDateTime.now();
+        this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
+    }
+
+    private String formatarDataCriacao(LocalDateTime dataCriacao) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dataCriacao.format(formatter);
     }
 }

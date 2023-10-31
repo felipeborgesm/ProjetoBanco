@@ -24,13 +24,14 @@ public class Usuario {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(name = "nome")
   private String nome;
 
   @Column(name = "cpf", nullable = false, unique = true)
   private String cpf;
 
-  @Column(name = "senha")
+  @Column(name = "senha", nullable = false, unique = true)
   private String senha;
 
   @Column(name = "dataCriacao")
