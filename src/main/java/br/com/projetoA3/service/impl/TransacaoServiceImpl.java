@@ -73,9 +73,5 @@ public class TransacaoServiceImpl implements TransacaoService {
         return transacaoRepository.getAllByContaId(id);
     }
 
-    @Override
-    public List<Transacao> getAll() {
-        return transacaoRepository.findAll();
-    }
-
+   
 }

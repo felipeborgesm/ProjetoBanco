@@ -2,7 +2,6 @@ package br.com.projetoA3.dto;
 
 import br.com.projetoA3.model.TipoTransacao;
 import br.com.projetoA3.model.Transacao;
-import br.com.projetoA3.model.Conta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +18,7 @@ public class TransacaoResponse {
     private Integer agencia;
     private Integer numero;
     private String dataCriacao;
-    private Conta conta;
+    private GetTransacaoContaResponse infoConta;
 
     public TransacaoResponse(Transacao transacao) {
         this.valor = transacao.getValor();
@@ -27,7 +26,7 @@ public class TransacaoResponse {
         this.agencia = transacao.getAgencia();
         this.numero = transacao.getNumero();
         this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
-        this.conta = transacao.getConta();
+        this.infoConta = transacao.getConta().getContaReduced(transacao.getConta());
     }
 
     private String formatarDataCriacao(LocalDateTime dataCriacao) {

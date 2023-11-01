@@ -64,6 +64,7 @@ public class Conta {
     }
 
     public GetTransacaoContaResponse getContaReduced(Conta conta) {
-        return new GetTransacaoContaResponse(conta.getNumero(), conta.getAgencia());
+        return new GetTransacaoContaResponse(conta.getUsuario().getNome(), conta.getNumero(), conta.getAgencia());
+
     }
 }
