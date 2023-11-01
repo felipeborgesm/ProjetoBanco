@@ -6,6 +6,7 @@ D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\dto\TransacaoRequest.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\service\impl\TransacaoServiceImpl.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\model\TipoTransacao.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\model\Usuario.java
+D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\dto\CreateTransacaoResponse.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\configs\WebConfig.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\model\Transacao.java
 D:\Workspace\bancoAPI\src\main\java\br\com\projetoA3\service\impl\ContaServiceImpl.java

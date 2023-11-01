@@ -20,6 +20,7 @@ br\com\projetoA3\dto\CreateContaResponse.class
 br\com\projetoA3\service\UsuarioService.class
 br\com\projetoA3\model\TipoTransacao.class
 br\com\projetoA3\dto\ContaRequest.class
+br\com\projetoA3\dto\CreateTransacaoResponse.class
 br\com\projetoA3\dto\TransacaoRequest.class
 br\com\projetoA3\dto\UsuarioRequest.class
 br\com\projetoA3\model\Transacao.class
