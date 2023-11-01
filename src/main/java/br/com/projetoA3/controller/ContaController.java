@@ -42,10 +42,10 @@ public class ContaController {
     return transacaoService.createTransacao(id, transacaoRequest);
   }
 
-    @PostMapping("/depositar/{id}")
+    @PostMapping("/depositar")
   @ResponseStatus(HttpStatus.CREATED)
-  public CreateTransacaoResponse createDeposito(@PathVariable Long id, @RequestBody TransacaoRequest transacaoRequest) {
-    return transacaoService.createDeposito(id, transacaoRequest);
+  public CreateTransacaoResponse createDeposito(@RequestBody TransacaoRequest transacaoRequest) {
+    return transacaoService.createDeposito(transacaoRequest);
   }
 
 

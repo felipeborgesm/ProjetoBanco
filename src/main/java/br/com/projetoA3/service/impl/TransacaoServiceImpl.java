@@ -2,7 +2,6 @@ package br.com.projetoA3.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.projetoA3.service.TransacaoService;
 import br.com.projetoA3.repository.ContaRepository;
 import br.com.projetoA3.repository.TransacaoRepository;
@@ -10,11 +9,11 @@ import br.com.projetoA3.dto.CreateTransacaoResponse;
 import br.com.projetoA3.dto.TransacaoRequest;
 import br.com.projetoA3.dto.TransacaoResponse;
 import br.com.projetoA3.model.Transacao;
-
 import java.util.List;
 
 @Service
 public class TransacaoServiceImpl implements TransacaoService {
+
     @Autowired
     TransacaoRepository transacaoRepository;
     @Autowired
@@ -44,6 +43,26 @@ public class TransacaoServiceImpl implements TransacaoService {
         contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(saldoParaTransferir));
 
         Transacao transacao = new Transacao(transacaoRequest);
+        transacao.setConta(contaOrigem);
+        transacaoRepository.save(transacao);
+
+        return new CreateTransacaoResponse(transacao);
+    }
+
+    @Override
+    public CreateTransacaoResponse createDeposito(TransacaoRequest transacaoRequest) {
+        var contaOrigem = contaRepository.findByNumeroAndAgencia(transacaoRequest.getNumero(),
+                transacaoRequest.getAgencia());
+        if (contaOrigem == null) {
+            throw new RuntimeException("Conta não encontrada.");
+        }
+
+        var saldoParaTransferir = transacaoRequest.getValor();
+
+        contaOrigem.setSaldo(contaOrigem.getSaldo().add(saldoParaTransferir));
+
+        Transacao transacao = new Transacao(transacaoRequest);
+        transacao.setConta(contaOrigem);
         transacaoRepository.save(transacao);
 
         return new CreateTransacaoResponse(transacao);
@@ -57,20 +76,6 @@ public class TransacaoServiceImpl implements TransacaoService {
     @Override
     public List<Transacao> getAll() {
         return transacaoRepository.findAll();
-    }
-
-    @Override
-    public CreateTransacaoResponse createDeposito(Long id, TransacaoRequest transacaoRequest) {
-        var contaOrigem = contaRepository.findById(id).orElseThrow();
-
-        var saldoParaTransferir = transacaoRequest.getValor();
-
-        contaOrigem.setSaldo(contaOrigem.getSaldo().add(saldoParaTransferir));
-
-        Transacao transacao = new Transacao(transacaoRequest);
-        transacaoRepository.save(transacao);
-
-        return new CreateTransacaoResponse(transacao);
     }
 
 }

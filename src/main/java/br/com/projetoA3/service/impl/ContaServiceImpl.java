@@ -3,20 +3,19 @@ package br.com.projetoA3.service.impl;
 import br.com.projetoA3.dto.ContaRequest;
 import br.com.projetoA3.dto.ContaResponse;
 import br.com.projetoA3.dto.CreateContaResponse;
-import br.com.projetoA3.dto.TransacaoRequest;
 import br.com.projetoA3.model.Conta;
 import br.com.projetoA3.repository.ContaRepository;
 import br.com.projetoA3.repository.UsuarioRepository;
 import br.com.projetoA3.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class ContaServiceImpl implements ContaService {
+  
   @Autowired
   ContaRepository contaRepository;
   @Autowired
@@ -61,26 +60,5 @@ public class ContaServiceImpl implements ContaService {
     contaRepository.save(conta);
 
     return new ContaResponse(conta);
-  }
-
-  @Override
-  public void createTransacao(Long id, TransacaoRequest transacaoRequest) {
-    var contaOrigem = contaRepository.findById(id).orElseThrow();
-
-    if (contaOrigem.getSaldo().compareTo(transacaoRequest.getValor()) < 0) {
-      throw new RuntimeException("Saldo insuficiente");
-    }
-    
-    var contaDestinada = contaRepository.findByNumeroAndAgencia(transacaoRequest.getNumero(), transacaoRequest.getAgencia());
-    if (contaDestinada == null) { 
-      throw new RuntimeException("Conta não encontrada");
-    }
-
-    var saldoParaTransferir = transacaoRequest.getValor();
-
-    contaDestinada.setSaldo(saldoParaTransferir);
-
-    contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(saldoParaTransferir));
-
   }
 }

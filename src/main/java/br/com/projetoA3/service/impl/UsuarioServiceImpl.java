@@ -14,7 +14,8 @@ import java.util.Objects;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-  @Autowired UsuarioRepository usuarioRepository;
+  @Autowired
+  UsuarioRepository usuarioRepository;
 
   @Override
   public CreateUsuarioResponse create(UsuarioRequest usuarioRequest) {
@@ -31,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   public UsuarioResponse update(String senha, UsuarioRequest usuarioRequest, Long id) {
-    if (!Objects.equals(senha, "admin123")){
+    if (!Objects.equals(senha, "admin123")) {
       throw new RuntimeException("Senha errada");
     }
 
@@ -49,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   public void delete(String senha, Long id) {
-    if (!Objects.equals(senha, "admin123")){
+    if (!Objects.equals(senha, "admin123")) {
       throw new RuntimeException("Senha errada");
     }
 

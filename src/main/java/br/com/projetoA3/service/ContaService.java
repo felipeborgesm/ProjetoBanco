@@ -13,5 +13,4 @@ public interface ContaService {
 
   ContaResponse update(String senha, ContaRequest contaRequest, Long id);
 
-  void createTransacao(Long id, TransacaoRequest transacaoRequest);
 }

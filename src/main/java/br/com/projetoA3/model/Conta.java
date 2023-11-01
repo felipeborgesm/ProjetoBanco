@@ -2,6 +2,7 @@ package br.com.projetoA3.model;
 
 import br.com.projetoA3.dto.ContaRequest;
 import br.com.projetoA3.dto.GetTransacaoContaResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -54,9 +52,9 @@ public class Conta {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonProperty(access = JsonProperty.Access.AUTO)
-    private List<Transacao> transacao;
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Transacao> transacoes;
 
     public Conta(ContaRequest contaRequest) {
         this.numero = contaRequest.getNumero();

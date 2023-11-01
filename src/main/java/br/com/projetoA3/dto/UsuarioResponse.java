@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @AllArgsConstructor
 public class UsuarioResponse {
-
     private String nome;
     private String cpf;
     private String dataCriacao;
