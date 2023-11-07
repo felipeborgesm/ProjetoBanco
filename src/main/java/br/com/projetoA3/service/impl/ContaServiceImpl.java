@@ -9,13 +9,11 @@ import br.com.projetoA3.repository.UsuarioRepository;
 import br.com.projetoA3.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.Random;
 
 @Service
 public class ContaServiceImpl implements ContaService {
-  
+
   @Autowired
   ContaRepository contaRepository;
   @Autowired
@@ -25,6 +23,7 @@ public class ContaServiceImpl implements ContaService {
   public CreateContaResponse create(ContaRequest contaRequest, Long id) {
     var usuario = usuarioRepository.getById(id);
     Conta conta = new Conta(contaRequest);
+    conta.setNumero(gerarNumeroUnico());
     conta.setUsuario(usuario);
     contaRepository.save(conta);
     return new CreateContaResponse(conta);
@@ -36,29 +35,18 @@ public class ContaServiceImpl implements ContaService {
     return new ContaResponse(conta);
   }
 
-  @Override
-  public List<Conta> getAll(String senha) {
-    if (!Objects.equals(senha, "admin123")) {
-      throw new RuntimeException("Senha errada");
-    }
-    return contaRepository.findAll();
+  private Integer gerarNumeroUnico() {
+    Random random = new Random();
+    Integer numeroAleatorio;
+
+    do {
+      numeroAleatorio = random.nextInt(900000) + 100000;
+    } while (!numeroEhUnico(numeroAleatorio));
+
+    return numeroAleatorio;
   }
 
-  @Override
-  public ContaResponse update(String senha, ContaRequest contaRequest, Long id) {
-    if (!Objects.equals(senha, "admin123")) {
-      throw new RuntimeException("Senha errada");
-    }
-
-    var conta = contaRepository.findById(id).orElseThrow();
-
-    conta.setNumero(contaRequest.getNumero());
-    conta.setAgencia(conta.getAgencia());
-    conta.setTipoConta(contaRequest.getTipoConta());
-    conta.setDataAtualizacao(LocalDateTime.now());
-
-    contaRepository.save(conta);
-
-    return new ContaResponse(conta);
+  private boolean numeroEhUnico(Integer numero) {
+    return contaRepository.findByNumero(numero) == null;
   }
 }

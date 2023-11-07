@@ -31,12 +31,6 @@ public class ContaController {
     return contaService.create(contaRequest, id);
   }
 
-  @PutMapping("/atualizar/{id}")
-  @Operation(summary = "Atualiza os dados da conta de acordo o Id", description = "Retorna os dados atualizados")
-  public ContaResponse update(String senha, @PathVariable Long id, @RequestBody ContaRequest contaRequest) {
-    return contaService.update(senha, contaRequest, id);
-  }
-
   @GetMapping("/{id}")
   @Operation(summary = "Retorna os dados da conta de acordo o Id", description = "Retorna os dados da conta")
   public ContaResponse getById(@PathVariable Long id) {

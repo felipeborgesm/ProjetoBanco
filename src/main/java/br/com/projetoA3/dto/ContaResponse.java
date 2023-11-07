@@ -16,6 +16,7 @@ public class ContaResponse {
     private Long id;
     private Integer numero;
     private Integer agencia;
+    private Integer banco;
     private TipoConta tipoConta;
     private BigDecimal saldo;
     private String dataCriacao;
@@ -24,6 +25,7 @@ public class ContaResponse {
         this.id = conta.getId();
         this.numero = conta.getNumero();
         this.agencia = conta.getAgencia();
+        this.banco = conta.getBanco();
         this.tipoConta = conta.getTipoConta();
         this.saldo = conta.getSaldo();
         this.dataCriacao = formatarDataCriacao(LocalDateTime.now());

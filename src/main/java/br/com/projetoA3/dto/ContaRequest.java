@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ContaRequest {
-    private Integer numero;
-    private Integer agencia;
     private TipoConta tipoConta;
     private BigDecimal saldo;
 }

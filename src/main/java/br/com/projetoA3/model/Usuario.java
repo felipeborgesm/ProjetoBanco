@@ -1,5 +1,6 @@
 package br.com.projetoA3.model;
 
+import br.com.projetoA3.dto.GetTransacaoUsuarioResponse;
 import br.com.projetoA3.dto.UsuarioRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -25,14 +26,17 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "nome")
+  @Column(name = "nome", nullable = false)
   private String nome;
 
   @Column(name = "cpf", nullable = false, unique = true)
   private String cpf;
 
-  @Column(name = "senha", nullable = false, unique = true)
+  @Column(name = "senha", nullable = false)
   private String senha;
+
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
 
   @Column(name = "dataCriacao")
   @CreatedDate
@@ -47,8 +51,14 @@ public class Usuario {
   private List<Conta> contas;
 
   public Usuario(UsuarioRequest usuarioRequest) {
-    this.cpf = usuarioRequest.getCpf();
     this.nome = usuarioRequest.getNome();
+    this.cpf = usuarioRequest.getCpf();
+    this.email = usuarioRequest.getEmail();
     this.senha = usuarioRequest.getSenha();
+  }
+
+  public GetTransacaoUsuarioResponse getUsuarioReduced(Usuario usuario) {
+    return new GetTransacaoUsuarioResponse(usuario.getNome(), usuario.getCpf(), usuario.getEmail());
+
   }
 }

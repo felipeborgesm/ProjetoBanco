@@ -1,12 +1,15 @@
 package br.com.projetoA3.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class UsuarioRequest {
+@Getter
+@Setter
+@AllArgsConstructor
+public class GetTransacaoUsuarioResponse {
     private String nome;
     private String cpf;
     private String email;
-    private String senha;
+    
 }

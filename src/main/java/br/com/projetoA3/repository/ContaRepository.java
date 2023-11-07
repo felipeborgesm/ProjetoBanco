@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ContaRepository extends JpaRepository<Conta, Long> {
 
     Conta findByNumeroAndAgencia(Integer numero, Integer agencia);
+
+    Conta findByNumero(Integer numero);
 }

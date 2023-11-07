@@ -9,13 +9,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetTransacaoContaResponse {
-    private String nome;
     private Integer numero;
     private Integer agencia;
+    private Integer banco;
+    private GetTransacaoUsuarioResponse infoUsuario;
 
     public GetTransacaoContaResponse(Conta conta) {
-        this.nome = conta.getUsuario().getNome();
         this.numero = conta.getNumero();
         this.agencia = conta.getAgencia();
+        this.banco = conta.getBanco();
+        this.infoUsuario = conta.getUsuario().getUsuarioReduced(conta.getUsuario());
     }
 }

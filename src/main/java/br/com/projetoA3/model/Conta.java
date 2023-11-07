@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -27,13 +26,16 @@ public class Conta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "numero")
+    @Column(name = "numero", unique = true)
     private Integer numero;
 
     @Column(name = "agencia")
     private Integer agencia;
 
-    @Column(name = "tipoConta")
+    @Column(name = "banco")
+    private Integer banco;
+
+    @Column(name = "tipoConta", nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoConta tipoConta;
 
@@ -44,10 +46,6 @@ public class Conta {
     @CreatedDate
     private LocalDateTime dataCriacao;
 
-    @Column(name = "dataAtualizacao")
-    @LastModifiedDate
-    private LocalDateTime dataAtualizacao;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
@@ -57,14 +55,15 @@ public class Conta {
     private List<Transacao> transacoes;
 
     public Conta(ContaRequest contaRequest) {
-        this.numero = contaRequest.getNumero();
-        this.agencia = contaRequest.getAgencia();
+        this.agencia = 00100;
+        this.banco = 1721;
         this.tipoConta = contaRequest.getTipoConta();
         this.saldo = contaRequest.getSaldo();
     }
 
     public GetTransacaoContaResponse getContaReduced(Conta conta) {
-        return new GetTransacaoContaResponse(conta.getUsuario().getNome(), conta.getNumero(), conta.getAgencia());
+        return new GetTransacaoContaResponse(conta.getNumero(), conta.getAgencia(),
+                conta.getBanco(), conta.getUsuario().getUsuarioReduced(conta.getUsuario()));
 
     }
 }

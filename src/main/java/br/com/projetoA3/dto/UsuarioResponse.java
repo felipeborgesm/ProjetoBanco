@@ -13,12 +13,14 @@ import java.time.format.DateTimeFormatter;
 public class UsuarioResponse {
     private String nome;
     private String cpf;
+    private String email;
     private String dataCriacao;
     private LocalDateTime dataAtualizacao;
 
     public UsuarioResponse(Usuario usuario) {
         this.nome = usuario.getNome();
         this.cpf = usuario.getCpf();
+        this.email = usuario.getEmail();
         this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
     }
 
