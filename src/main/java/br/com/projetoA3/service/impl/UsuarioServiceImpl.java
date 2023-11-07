@@ -47,14 +47,4 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     return new UsuarioResponse(usuario);
   }
-
-  @Override
-  public void delete(String senha, Long id) {
-    if (!Objects.equals(senha, "admin123")) {
-      throw new RuntimeException("Senha errada");
-    }
-
-    var usuario = usuarioRepository.findById(id).orElseThrow();
-    usuarioRepository.delete(usuario);
-  }
 }

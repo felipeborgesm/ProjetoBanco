@@ -11,5 +11,4 @@ public interface UsuarioService {
 
     UsuarioResponse update(String senha, UsuarioRequest usuarioRequest, Long id);
 
-    void delete(String senha, Long id);
 }

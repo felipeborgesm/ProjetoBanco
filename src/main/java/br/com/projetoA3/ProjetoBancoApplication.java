@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
     info =
         @Info(
             title = "API Sistema Bancario",
-            version = "1.0",
+            version = "2.0",
             description =
                 "Essa API simula um sistema bancário, permitindo a criação de um usuario, que pode criar uma conta"
                     + " e que pode fazer transações para outras contas de outros usuarios"))
