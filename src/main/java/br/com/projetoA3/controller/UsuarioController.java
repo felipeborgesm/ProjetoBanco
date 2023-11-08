@@ -1,7 +1,8 @@
 package br.com.projetoA3.controller;
 
-import br.com.projetoA3.dto.UsuarioRequest;
+import br.com.projetoA3.dto.CreateUsuarioRequest;
 import br.com.projetoA3.dto.TextoResponse;
+import br.com.projetoA3.dto.UpdateUsuarioRequest;
 import br.com.projetoA3.dto.UsuarioResetSenhaRequest;
 import br.com.projetoA3.dto.CreateUsuarioResponse;
 import br.com.projetoA3.dto.UsuarioResponse;
@@ -21,13 +22,13 @@ public class UsuarioController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @Operation(summary = "Cria um usuário", description = "Retorna o Id do usuário criado")
-  public CreateUsuarioResponse create(@RequestBody UsuarioRequest usuarioRequest) {
+  public CreateUsuarioResponse create(@RequestBody CreateUsuarioRequest usuarioRequest) {
     return usuarioService.create(usuarioRequest);
   }
 
   @PutMapping("/atualizar/{id}")
   @Operation(summary = "Atualiza os dados do usuário de acordo o Id", description = "Retorna os dados atualizados")
-  public UsuarioResponse update(@PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest) {
+  public UsuarioResponse update(@PathVariable Long id, @RequestBody UpdateUsuarioRequest usuarioRequest) {
     return usuarioService.update(usuarioRequest, id);
   }
   

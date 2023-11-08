@@ -1,7 +1,7 @@
 package br.com.projetoA3.model;
 
 import br.com.projetoA3.dto.GetTransacaoUsuarioResponse;
-import br.com.projetoA3.dto.UsuarioRequest;
+import br.com.projetoA3.dto.CreateUsuarioRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -54,7 +54,7 @@ public class Usuario {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private List<ResetSenhaToken> resetSenhaToken;
 
-  public Usuario(UsuarioRequest usuarioRequest) {
+  public Usuario(CreateUsuarioRequest usuarioRequest) {
     this.nome = usuarioRequest.getNome();
     this.cpf = usuarioRequest.getCpf();
     this.email = usuarioRequest.getEmail();

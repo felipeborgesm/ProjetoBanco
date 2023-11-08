@@ -1,9 +1,10 @@
 package br.com.projetoA3.service.impl;
 
-import br.com.projetoA3.dto.UsuarioRequest;
+import br.com.projetoA3.dto.CreateUsuarioRequest;
 import br.com.projetoA3.dto.UsuarioResetSenhaRequest;
 import br.com.projetoA3.dto.CreateUsuarioResponse;
 import br.com.projetoA3.dto.TextoResponse;
+import br.com.projetoA3.dto.UpdateUsuarioRequest;
 import br.com.projetoA3.dto.UsuarioResponse;
 import br.com.projetoA3.model.ResetSenhaToken;
 import br.com.projetoA3.model.TokenUtils;
@@ -32,7 +33,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   EmailServiceImpl emailServiceImpl;
 
   @Override
-  public CreateUsuarioResponse create(UsuarioRequest usuarioRequest) {
+  public CreateUsuarioResponse create(CreateUsuarioRequest usuarioRequest) {
     Usuario usuario = new Usuario(usuarioRequest);
 
     if (!validarEmail(usuario.getEmail())) {
@@ -44,7 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   }
 
   @Override
-  public UsuarioResponse update(UsuarioRequest usuarioRequest, Long id) {
+  public UsuarioResponse update(UpdateUsuarioRequest usuarioRequest, Long id) {
 
     var usuario = usuarioRepository.findById(id).orElseThrow();
     if (usuario == null) {
@@ -56,7 +57,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     usuario.setNome(usuarioRequest.getNome());
-    usuario.setCpf(usuarioRequest.getCpf());
     usuario.setEmail(usuarioRequest.getEmail());
     usuario.setDataAtualizacao(LocalDateTime.now());
     usuarioRepository.save(usuario);
@@ -111,6 +111,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     var usuario = resetSenhaToken.getUsuario();
     usuario.setSenha(usuarioResetSenha.getSenha());
+    usuario.setDataAtualizacao(LocalDateTime.now());
     usuarioRepository.save(usuario);
 
     resetSenhaToken.setStatus(false);
