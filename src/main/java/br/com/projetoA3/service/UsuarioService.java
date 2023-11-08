@@ -11,4 +11,6 @@ public interface UsuarioService {
 
     UsuarioResponse update(UsuarioRequest usuarioRequest, Long id);
 
+    String findByEmail(String email);
+
 }

@@ -23,6 +23,10 @@ public class ContaServiceImpl implements ContaService {
   public CreateContaResponse create(ContaRequest contaRequest, Long id) {
     var usuario = usuarioRepository.getById(id);
 
+    if (usuario == null) {
+      throw new RuntimeException("Usuário não encontrado");
+    }
+
     Conta conta = new Conta(contaRequest);
     conta.setNumero(gerarNumeroUnico());
     conta.setUsuario(usuario);

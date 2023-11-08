@@ -35,4 +35,10 @@ public class UsuarioController {
     return usuarioService.getById(id);
   }
 
+  @PutMapping("/token-senha/{email}")
+  @Operation(summary = "Envia um e-mail com o token", description = "Retorna token para redefinir senha")
+  public String update(@PathVariable String email) {
+    return usuarioService.findByEmail(email);
+  }
+
 }
