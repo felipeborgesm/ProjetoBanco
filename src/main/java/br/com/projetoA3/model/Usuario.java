@@ -49,6 +49,10 @@ public class Usuario {
   @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private List<Conta> contas;
+  
+  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private List<ResetSenhaToken> resetSenhaToken;
 
   public Usuario(UsuarioRequest usuarioRequest) {
     this.nome = usuarioRequest.getNome();

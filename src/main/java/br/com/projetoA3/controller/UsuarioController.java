@@ -1,6 +1,8 @@
 package br.com.projetoA3.controller;
 
 import br.com.projetoA3.dto.UsuarioRequest;
+import br.com.projetoA3.dto.TextoResponse;
+import br.com.projetoA3.dto.UsuarioResetSenhaRequest;
 import br.com.projetoA3.dto.CreateUsuarioResponse;
 import br.com.projetoA3.dto.UsuarioResponse;
 import br.com.projetoA3.service.UsuarioService;
@@ -36,9 +38,15 @@ public class UsuarioController {
   }
 
   @PutMapping("/token-senha/{email}")
-  @Operation(summary = "Envia um e-mail com o token", description = "Retorna token para redefinir senha")
-  public String update(@PathVariable String email) {
+  @Operation(summary = "Envia um e-mail com o token", description = "Retorna mensagem de sucesso")
+  public TextoResponse findByEmail(@PathVariable String email) {
     return usuarioService.findByEmail(email);
+  }
+
+  @PutMapping("/trocar-senha")
+  @Operation(summary = "Atualiza a senha de acordo com o token", description = "Retorna mensagem de sucesso")
+  public TextoResponse updateSenha(@RequestBody UsuarioResetSenhaRequest usuarioResetSenhaRequest) {
+    return usuarioService.updateSenha(usuarioResetSenhaRequest);
   }
 
 }

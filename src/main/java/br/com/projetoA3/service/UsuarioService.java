@@ -1,7 +1,9 @@
 package br.com.projetoA3.service;
 
 import br.com.projetoA3.dto.UsuarioRequest;
+import br.com.projetoA3.dto.UsuarioResetSenhaRequest;
 import br.com.projetoA3.dto.CreateUsuarioResponse;
+import br.com.projetoA3.dto.TextoResponse;
 import br.com.projetoA3.dto.UsuarioResponse;
 
 public interface UsuarioService {
@@ -11,6 +13,8 @@ public interface UsuarioService {
 
     UsuarioResponse update(UsuarioRequest usuarioRequest, Long id);
 
-    String findByEmail(String email);
+    TextoResponse findByEmail(String email);
+
+    TextoResponse updateSenha(UsuarioResetSenhaRequest UsuarioResetSenha);
 
 }
