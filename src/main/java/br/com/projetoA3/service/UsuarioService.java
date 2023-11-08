@@ -9,6 +9,6 @@ public interface UsuarioService {
 
     UsuarioResponse getById(Long id);
 
-    UsuarioResponse update(String senha, UsuarioRequest usuarioRequest, Long id);
+    UsuarioResponse update(UsuarioRequest usuarioRequest, Long id);
 
 }

@@ -25,8 +25,8 @@ public class UsuarioController {
 
   @PutMapping("/atualizar/{id}")
   @Operation(summary = "Atualiza os dados do usuário de acordo o Id", description = "Retorna os dados atualizados")
-  public UsuarioResponse update(String senha, @PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest) {
-    return usuarioService.update(senha, usuarioRequest, id);
+  public UsuarioResponse update(@PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest) {
+    return usuarioService.update(usuarioRequest, id);
   }
   
   @GetMapping("/{id}")

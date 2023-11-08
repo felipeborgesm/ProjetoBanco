@@ -22,16 +22,19 @@ public class ContaServiceImpl implements ContaService {
   @Override
   public CreateContaResponse create(ContaRequest contaRequest, Long id) {
     var usuario = usuarioRepository.getById(id);
+
     Conta conta = new Conta(contaRequest);
     conta.setNumero(gerarNumeroUnico());
     conta.setUsuario(usuario);
     contaRepository.save(conta);
+
     return new CreateContaResponse(conta);
   }
 
   @Override
   public ContaResponse getById(Long id) {
     Conta conta = contaRepository.findById(id).orElseThrow();
+
     return new ContaResponse(conta);
   }
 
