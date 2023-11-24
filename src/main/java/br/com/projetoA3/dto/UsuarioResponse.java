@@ -21,11 +21,11 @@ public class UsuarioResponse {
         this.nome = usuario.getNome();
         this.cpf = usuario.getCpf();
         this.email = usuario.getEmail();
-        this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
+        this.dataCriacao = formatarData(usuario.getDataCriacao());
     }
 
-    private String formatarDataCriacao(LocalDateTime dataCriacao) {
+    private String formatarData(LocalDateTime data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dataCriacao.format(formatter);
+        return data.format(formatter);
     }
 }

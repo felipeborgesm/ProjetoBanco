@@ -1,13 +1,12 @@
 package br.com.projetoA3.dto;
 
-import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class TransacaoRequest {
-    private Integer numero;
-    private Integer agencia;
+public class EmprestimoRequest {
     private BigDecimal valor;
+    private Integer parcelas;
 }

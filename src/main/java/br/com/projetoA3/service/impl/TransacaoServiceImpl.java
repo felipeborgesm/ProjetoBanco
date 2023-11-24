@@ -8,6 +8,7 @@ import br.com.projetoA3.repository.TransacaoRepository;
 import br.com.projetoA3.dto.CreateTransacaoResponse;
 import br.com.projetoA3.dto.TransacaoRequest;
 import br.com.projetoA3.dto.TransacaoResponse;
+import br.com.projetoA3.model.TipoTransacao;
 import br.com.projetoA3.model.Transacao;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class TransacaoServiceImpl implements TransacaoService {
     ContaRepository contaRepository;
 
     @Override
-    public CreateTransacaoResponse createTransacao(Long id, TransacaoRequest transacaoRequest) {
+    public CreateTransacaoResponse createTransacao(Long id, TipoTransacao tipoTransacao, TransacaoRequest transacaoRequest) {
         var contaOrigem = contaRepository.findById(id).orElseThrow();
 
         if (contaOrigem.getSaldo().compareTo(transacaoRequest.getValor()) < 0) {
@@ -43,13 +44,14 @@ public class TransacaoServiceImpl implements TransacaoService {
 
         Transacao transacao = new Transacao(transacaoRequest);
         transacao.setConta(contaOrigem);
+        transacao.setTipoTransacao(tipoTransacao);
         transacaoRepository.save(transacao);
 
         return new CreateTransacaoResponse(transacao);
     }
 
     @Override
-    public CreateTransacaoResponse createDeposito(TransacaoRequest transacaoRequest) {
+    public CreateTransacaoResponse createDeposito(TransacaoRequest transacaoRequest, TipoTransacao tipoTransacao) {
         var contaOrigem = contaRepository.findByNumeroAndAgencia(transacaoRequest.getNumero(),
                 transacaoRequest.getAgencia());
         if (contaOrigem == null) {
@@ -62,6 +64,7 @@ public class TransacaoServiceImpl implements TransacaoService {
 
         Transacao transacao = new Transacao(transacaoRequest);
         transacao.setConta(contaOrigem);
+        transacao.setTipoTransacao(tipoTransacao);
         transacaoRepository.save(transacao);
 
         return new CreateTransacaoResponse(transacao);

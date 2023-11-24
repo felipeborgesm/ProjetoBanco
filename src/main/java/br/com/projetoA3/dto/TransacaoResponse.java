@@ -25,12 +25,12 @@ public class TransacaoResponse {
         this.tipoTransacao = transacao.getTipoTransacao();
         this.agencia = transacao.getAgencia();
         this.numero = transacao.getNumero();
-        this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
+        this.dataCriacao = formatarData(transacao.getDataCriacao());
         this.infoConta = transacao.getConta().getContaReduced(transacao.getConta());
     }
 
-    private String formatarDataCriacao(LocalDateTime dataCriacao) {
+    private String formatarData(LocalDateTime data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dataCriacao.format(formatter);
+        return data.format(formatter);
     }
 }

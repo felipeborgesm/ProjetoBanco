@@ -4,6 +4,7 @@ import br.com.projetoA3.dto.ContaRequest;
 import br.com.projetoA3.dto.ContaResponse;
 import br.com.projetoA3.dto.CreateContaResponse;
 import br.com.projetoA3.model.Conta;
+import br.com.projetoA3.model.TipoConta;
 import br.com.projetoA3.repository.ContaRepository;
 import br.com.projetoA3.repository.UsuarioRepository;
 import br.com.projetoA3.service.ContaService;
@@ -20,7 +21,7 @@ public class ContaServiceImpl implements ContaService {
   UsuarioRepository usuarioRepository;
 
   @Override
-  public CreateContaResponse create(ContaRequest contaRequest, Long id) {
+  public CreateContaResponse create(ContaRequest contaRequest, Long id, TipoConta tipoConta) {
     var usuario = usuarioRepository.getById(id);
 
     if (usuario == null) {
@@ -28,6 +29,7 @@ public class ContaServiceImpl implements ContaService {
     }
 
     Conta conta = new Conta(contaRequest);
+    conta.setTipoConta(tipoConta);
     conta.setNumero(gerarNumeroUnico());
     conta.setUsuario(usuario);
     contaRepository.save(conta);

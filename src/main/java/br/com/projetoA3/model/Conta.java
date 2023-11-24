@@ -54,10 +54,13 @@ public class Conta {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Transacao> transacoes;
 
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Emprestimo> emprestimos;
+
     public Conta(ContaRequest contaRequest) {
         this.agencia = 00100;
         this.banco = 1721;
-        this.tipoConta = contaRequest.getTipoConta();
         this.saldo = contaRequest.getSaldo();
     }
 

@@ -22,17 +22,16 @@ public class ContaResponse {
     private String dataCriacao;
 
     public ContaResponse(Conta conta) {
-        this.id = conta.getId();
         this.numero = conta.getNumero();
         this.agencia = conta.getAgencia();
         this.banco = conta.getBanco();
         this.tipoConta = conta.getTipoConta();
         this.saldo = conta.getSaldo();
-        this.dataCriacao = formatarDataCriacao(LocalDateTime.now());
+        this.dataCriacao = formatarData(conta.getDataCriacao());
     }
 
-    private String formatarDataCriacao(LocalDateTime dataCriacao) {
+    private String formatarData(LocalDateTime data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dataCriacao.format(formatter);
+        return data.format(formatter);
     }
 }
