@@ -15,13 +15,14 @@ public class UsuarioResponse {
     private String cpf;
     private String email;
     private String dataCriacao;
-    private LocalDateTime dataAtualizacao;
+    private String dataAtualizacao;
 
     public UsuarioResponse(Usuario usuario) {
         this.nome = usuario.getNome();
         this.cpf = usuario.getCpf();
         this.email = usuario.getEmail();
         this.dataCriacao = formatarData(usuario.getDataCriacao());
+        this.dataAtualizacao = formatarData(usuario.getDataAtualizacao());
     }
 
     private String formatarData(LocalDateTime data) {

@@ -36,8 +36,12 @@ public class UsuarioServiceImpl implements UsuarioService {
   public CreateUsuarioResponse create(CreateUsuarioRequest usuarioRequest) {
     Usuario usuario = new Usuario(usuarioRequest);
 
-    if (!validarEmail(usuario.getEmail())) {
+    if (!isEmailValid(usuario.getEmail())) {
       throw new RuntimeException("E-mail inválido");
+    }
+
+    if (!isCPFValid(usuario.getCpf())) {
+      throw new RuntimeException("CPF inválido");
     }
 
     usuarioRepository.save(usuario);
@@ -47,12 +51,9 @@ public class UsuarioServiceImpl implements UsuarioService {
   @Override
   public UsuarioResponse update(UpdateUsuarioRequest usuarioRequest, Long id) {
 
-    var usuario = usuarioRepository.findById(id).orElseThrow();
-    if (usuario == null) {
-      throw new RuntimeException("Usuário não encontrado");
-    }
+    var usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    if (!validarEmail(usuario.getEmail())) {
+    if (!isEmailValid(usuario.getEmail())) {
       throw new RuntimeException("E-mail inválido");
     }
 
@@ -66,7 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   public TextoResponse findByEmail(String email) {
-    if (!validarEmail(email)) {
+    if (!isEmailValid(email)) {
       throw new RuntimeException("E-mail inválido");
     }
 
@@ -136,12 +137,26 @@ public class UsuarioServiceImpl implements UsuarioService {
     return new UsuarioResponse(usuario);
   }
 
-  private boolean validarEmail(String email) {
+  private boolean isEmailValid(String email) {
     String regex = "^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-z]{2,4}$";
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(email);
 
     return matcher.matches();
+  }
+
+  private static boolean isCPFValid(String cpf) {
+    if (cpf.length() != 11) {
+      return false;
+    }
+
+    for (int i = 0; i < 11; i++) {
+      if (!Character.isDigit(cpf.charAt(i))) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
 }
