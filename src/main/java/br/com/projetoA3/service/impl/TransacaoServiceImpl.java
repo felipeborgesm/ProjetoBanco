@@ -40,7 +40,7 @@ public class TransacaoServiceImpl implements TransacaoService {
 
         var saldoParaTransferir = transacaoRequest.getValor();
 
-        contaDestinada.setSaldo(saldoParaTransferir);
+        contaDestinada.setSaldo(contaDestinada.getSaldo().add(saldoParaTransferir));
         contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(saldoParaTransferir));
 
         Transacao transacao = new Transacao(transacaoRequest);
