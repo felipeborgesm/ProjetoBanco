@@ -47,7 +47,7 @@ public class ContaController {
     return contaService.getById(id);
   }
 
-  @PostMapping("/transacao/{id}/tipo/{tipoTransacao}")
+  @PostMapping("/transferir/{id}/tipoTransacao/{tipoTransacao}")
   @ResponseStatus(HttpStatus.CREATED)
   @Operation(summary = "Cria uma transação entre duas contas", description = "Retorna o Id da transação criada")
   public CreateTransacaoResponse createTransacao(@PathVariable Long id, @PathVariable TipoTransacao tipoTransacao,
@@ -55,7 +55,7 @@ public class ContaController {
     return transacaoService.createTransacao(id, tipoTransacao, transacaoRequest);
   }
 
-  @PostMapping("/depositar/tipo/{tipoTransacao}")
+  @PostMapping("/depositar/tipoTransacao/{tipoTransacao}")
   @ResponseStatus(HttpStatus.CREATED)
   @Operation(summary = "Cria depósito para a conta", description = "Retorna o Id do depósito criado")
   public CreateTransacaoResponse createDeposito(@PathVariable TipoTransacao tipoTransacao,

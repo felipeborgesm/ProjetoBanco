@@ -11,6 +11,7 @@ import br.com.projetoA3.dto.TransacaoResponse;
 import br.com.projetoA3.model.TipoTransacao;
 import br.com.projetoA3.model.Transacao;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TransacaoServiceImpl implements TransacaoService {
@@ -33,7 +34,7 @@ public class TransacaoServiceImpl implements TransacaoService {
         if (contaDestinada == null) {
             throw new RuntimeException("Conta não encontrada.");
         }
-        if (contaDestinada.getId() == contaOrigem.getId()) {
+        if (Objects.equals(contaDestinada.getId(), contaOrigem.getId())) {
             throw new RuntimeException("Não é possível fazer transação para mesma conta dessa forma.");
         }
 

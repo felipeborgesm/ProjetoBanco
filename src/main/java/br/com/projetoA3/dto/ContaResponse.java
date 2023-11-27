@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @AllArgsConstructor
 public class ContaResponse {
-    private Long id;
     private Integer numero;
     private Integer agencia;
     private Integer banco;
